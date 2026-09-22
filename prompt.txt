@@ -1,0 +1,48 @@
+AI tool prompts used in this project
+====================================
+Tool: Claude (Anthropic)
+
+[Project Planning & Benchmark Selection]
+- Prompt: "Review the 10 approved pyperformance workloads provided in the 
+  project instructions and recommend the two best benchmarks to analyze. 
+  Focus on selecting benchmarks that offer distinct performance bottlenecks 
+  and serve as strong, feasible candidates for eventual hardware 
+  acceleration."
+- Purpose of AI Use: The AI was utilized to evaluate the project's 
+  approved list of pyperformance benchmarks and filter the options based 
+  on their underlying algorithms and data structures. This 
+  helped identify nbody and raytrace as the most strategic choices for 
+  detecting optimizations and designing hardware modules.
+
+[Bottleneck Analysis]
+- Prompt: "I have executed the chosen benchmarks on the QEMU VM using 
+  python3-dbg and generated the corresponding perf reports and flame 
+  graphs. Can you analyze this profiling data to pinpoint the primary 
+  performance hotspots and explain why these specific Python functions 
+  are consuming excessive resources?"
+- Purpose of AI Use: The AI acted as an analytical aid to interpret the 
+  complex runtime behavior visualized in the flame graphs and stack 
+  traces. It helped translate the raw hardware performance 
+  counters and Python internal calls into actionable insights regarding 
+  inefficient code blocks.
+
+[Reporting & Output]
+- Prompt: "Help me write a shell script to automate the pyperformance 
+  execution for both the baseline and optimized code. The script needs to 
+  cleanly format and print the comparison results to clearly demonstrate 
+  whether the required 7% performance improvement was achieved for the 
+  final text report."
+- Purpose of AI Use: The AI was tasked with structuring the execution 
+  scripts and organizing the display of the performance data. 
+  This ensured the final benchmark reports properly captured the metrics 
+  and clearly highlighted the execution time reductions in a consistent, 
+  readable format.
+
+[Hardware Architecture Diagram]
+- Prompt: "Generate a picture or block diagram to visually explain how 
+  the flow of the hardware works. Show the data paths and how the 
+  proposed hardware accelerator interfaces with the existing software."
+- Purpose of AI Use: The AI was used to help conceptualize and generate 
+  a visual representation of the hardware architecture. This 
+  clarified the internal logic and system integration, assisting in the 
+  creation of the required hardware block diagram for the final report.
