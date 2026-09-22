@@ -1,0 +1,14 @@
+
+ Performance counter stats for 'python3 /root/stage12_project/benchmarks/nbody/profile_nbody.py original 5 20000' (5 runs):
+
+                 0      cycles                    #    0.000 GHz                    
+        8713724770      instructions                                                  ( +-  0.00% )
+        1500031830      branches                  #    1.192 G/sec                    ( +-  0.01% )
+           6778605      branch-misses             #    0.45% of all branches          ( +-  3.05% )
+           5427800      cache-references          #    4.313 M/sec                    ( +-  2.16% )
+            159132      cache-misses              #    3.154 % of all cache refs      ( +- 15.37% )
+           1266.72 msec task-clock                #    0.765 CPUs utilized            ( +-  0.57% )
+              2739      page-faults               #    2.176 K/sec                    ( +-  0.03% )
+
+             1.657 +- 0.259 seconds time elapsed  ( +- 15.65% )
+

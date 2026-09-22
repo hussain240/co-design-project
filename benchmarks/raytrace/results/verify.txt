@@ -1,0 +1,10 @@
+image 100x100 (30000 bytes)
+sha256 original : 11f2c36b02044f115c3937cae1156e9528b95da70f9d6b737a262f06757c2e6b
+sha256 optimized: 11f2c36b02044f115c3937cae1156e9528b95da70f9d6b737a262f06757c2e6b
+differing bytes : 0
+ablation stage v0_original   : identical
+ablation stage v1_no_checks  : identical
+ablation stage v2_hoist      : identical
+ablation stage v3_inline     : identical
+ablation stage v4_slots      : identical
+PASS (bit-identical)

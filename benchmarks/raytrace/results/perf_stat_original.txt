@@ -1,0 +1,14 @@
+
+ Performance counter stats for 'python3 /root/stage12_project/benchmarks/raytrace/profile_raytrace.py original 5' (5 runs):
+
+                 0      cycles                    #    0.000 GHz                    
+       25641141365      instructions                                                  ( +-  0.09% )
+        4945496813      branches                  #    1.208 G/sec                    ( +-  0.14% )
+          14637980      branch-misses             #    0.30% of all branches          ( +-  2.41% )
+          13323843      cache-references          #    3.254 M/sec                    ( +- 11.75% )
+             34366      cache-misses              #    0.197 % of all cache refs      ( +- 14.70% )
+           4061.41 msec task-clock                #    0.990 CPUs utilized            ( +-  0.23% )
+              2836      page-faults               #  692.670 /sec                     ( +-  0.02% )
+
+            4.1035 +- 0.0109 seconds time elapsed  ( +-  0.27% )
+

@@ -1,0 +1,5 @@
+variant                              time per 20k steps  vs original
+nbody_v0_original_20000it                      228.7 ms        1.00x
+nbody_v1_sqrt_20000it                          229.4 ms        1.00x
+nbody_v2_mdt_20000it                           226.0 ms        1.01x
+nbody_v3_locals_20000it                        139.3 ms        1.64x

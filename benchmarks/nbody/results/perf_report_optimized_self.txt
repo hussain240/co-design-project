@@ -1,0 +1,80 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 18K of event 'cpu-clock'
+# Event count (approx.): 18303303285
+#
+# Overhead  Shared Object         Symbol                                               
+# ........  ....................  .....................................................
+#
+    26.10%  python3.10d           [.] _PyEval_EvalFrameDefault
+     5.20%  python3.10d           [.] binary_op1
+     3.36%  python3.10d           [.] PyFloat_FromDouble
+     2.90%  python3.10d           [.] float_mul.lto_priv.0
+     2.53%  python3.10d           [.] float_dealloc.lto_priv.0
+     2.46%  python3.10d           [.] validate_list
+     1.66%  python3.10d           [.] lookdict_unicode_nodummy
+     1.60%  libm.so.6             [.] __ieee754_pow_fma
+     1.52%  python3.10d           [.] float_sub.lto_priv.0
+     1.41%  python3.10d           [.] float_add.lto_priv.0
+     1.39%  python3.10d           [.] _Py_NewReference
+     1.36%  python3.10d           [.] _Py_Dealloc
+     1.30%  python3.10d           [.] _Py_CheckSlotResult
+     1.23%  python3.10d           [.] get_float_state
+     1.19%  python3.10d           [.] _PyMem_DebugCheckAddress
+     1.11%  python3.10d           [.] binary_iop1
+     1.08%  python3.10d           [.] PyNumber_Multiply
+     1.04%  libc.so.6             [.] __memset_avx2_unaligned_erms
+     0.94%  python3.10d           [.] _PyUnicode_CheckConsistency
+     0.92%  python3.10d           [.] _PyObject_IsFreed
+     0.89%  python3.10d           [.] lookdict_unicode
+     0.79%  python3.10d           [.] _PyObject_Malloc
+     0.78%  libc.so.6             [.] pthread_getspecific@@GLIBC_2.34
+     0.74%  python3.10d           [.] read_size_t
+     0.73%  python3.10d           [.] PyTuple_GetItem
+     0.63%  python3.10d           [.] call_function.lto_priv.0
+     0.60%  python3.10d           [.] PyGILState_Check
+     0.60%  python3.10d           [.] find_name_in_mro.lto_priv.0
+     0.59%  python3.10d           [.] float_pow.lto_priv.0
+     0.58%  python3.10d           [.] visit_reachable
+     0.51%  python3.10d           [.] _PyType_Lookup
+     0.51%  python3.10d           [.] frame_dealloc.lto_priv.0
+     0.48%  python3.10d           [.] _PyEval_MakeFrameVector
+     0.46%  python3.10d           [.] PyNumber_InPlaceAdd
+     0.43%  python3.10d           [.] visit_decref
+     0.43%  python3.10d           [.] _PyObject_VectorcallTstate.lto_priv.10
+     0.40%  python3.10d           [.] _PyMem_DebugRawAlloc
+     0.39%  python3.10d           [.] r_object
+     0.37%  python3.10d           [.] binary_op
+     0.36%  python3.10d           [.] ternary_op
+     0.36%  [unknown]             [k] 0xffffffffa755e965
+     0.35%  [unknown]             [k] 0xffffffffa6cc428a
+     0.34%  python3.10d           [.] binary_iop
+     0.34%  python3.10d           [.] PyUnicode_New
+     0.34%  python3.10d           [.] tupledealloc.lto_priv.0
+     0.34%  python3.10d           [.] write_size_t
+     0.33%  python3.10d           [.] insertdict
+     0.32%  python3.10d           [.] _PyObject_GenericGetAttrWithDict
+     0.32%  python3.10d           [.] arena_map_get
+     0.30%  python3.10d           [.] PyThread_tss_get
+     0.29%  python3.10d           [.] _PyObject_Free
+     0.28%  python3.10d           [.] arena_map_is_used
+     0.28%  python3.10d           [.] lookdict_split.lto_priv.0
+     0.28%  python3.10d           [.] siphash24
+     0.26%  python3.10d           [.] _PyUnicode_FromId
+     0.25%  python3.10d           [.] PyType_IsSubtype
+     0.25%  python3.10d           [.] update_refs
+     0.22%  python3.10d           [.] _PyObject_GetMethod
+     0.21%  python3.10d           [.] _PyGILState_GetThisThreadState
+     0.21%  python3.10d           [.] _PyUnicode_FromUCS1.lto_priv.0
+     0.21%  python3.10d           [.] _Py_CheckFunctionResult
+     0.21%  python3.10d           [.] move_unreachable
+     0.21%  python3.10d           [.] pymalloc_pool_extend
+     0.21%  [unknown]             [k] 0xffffffffa71869b7
+
+
+#
+# (Cannot load tips.txt file, please install perf!)
+#

@@ -1,0 +1,57 @@
+digraph V3A {
+  graph [rankdir=LR, fontname="Helvetica", fontsize=12, nodesep=0.35, ranksep=0.55, splines=spline,
+         label="V3A - 3D Vector-math Accelerator: system integration", labelloc=t];
+  node  [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=10, fillcolor="#ffffff"];
+  edge  [fontname="Helvetica", fontsize=9];
+
+  subgraph cluster_host {
+    label="Host CPU (Linux, CPython 3.10)"; style="rounded,filled"; fillcolor="#eef3fb"; color="#7a9cc6";
+    py    [label="Python benchmark\nnbody.advance()  /  raytrace render()"];
+    ext   [label="v3a Python binding\n(C extension / ctypes)\npack Q23.40, batch jobs"];
+    drv   [label="v3a kernel driver\n/dev/v3a: mmap BAR0, ioctl,\npinned DMA buffers, MSI handler"];
+    buf   [label="DMA buffers (host RAM)\nbody state / ray batch /\nresults", shape=cylinder, fillcolor="#fff8e1"];
+    py -> ext -> drv;
+    drv -> buf [style=dashed, arrowhead=none];
+  }
+
+  pcie [label="PCIe Gen3 x4", shape=box, style="filled", fillcolor="#d9d9d9", width=0.4];
+
+  subgraph cluster_card {
+    label="FPGA accelerator card (v3a_top, 100 MHz)"; style="rounded,filled"; fillcolor="#eef8ee"; color="#6aa56a";
+    ep    [label="PCIe endpoint IP\nBAR0 -> AXI4-Lite (registers)\nAXI4 master (DMA)"];
+    dec   [label="address decoder\n0x000000 nbody window\n0x100000 ray window"];
+    irq   [label="IRQ / MSI\n(done)", shape=ellipse, fillcolor="#fdecea"];
+
+    subgraph cluster_nb {
+      label="v3a_nbody_ctrl"; style="rounded"; color="#555555";
+      nbreg [label="CSR: CTRL STATUS NBODIES\nNSTEPS DT STEPDONE CYCLES"];
+      body  [label="body state registers\nx y z vx vy vz m*dt  (NMAX=8)\n+ force accumulators", shape=box3d];
+      nbfsm [label="step FSM\nCLR -> FEED pairs -> WAIT\n-> VEL (v += acc) -> POS (r += dt*v)"];
+      pair  [label="v3a_pair_pipe\n19 stages, 1 pair / cycle\n(includes v3a_invsqrt)", fillcolor="#e3f2fd"];
+      nbreg -> nbfsm; body -> pair [label="r_i, r_j, mdt"]; nbfsm -> pair [label="valid, i, j"];
+      pair -> body [label="f_i, f_j"];
+    }
+
+    subgraph cluster_ray {
+      label="v3a_ray_ctrl"; style="rounded"; color="#555555";
+      ryreg [label="CSR: CTRL(mode) STATUS NRAYS\nNSPH EPS CYCLES TESTS"];
+      raym  [label="ray BRAM\n4096 x 384 bit\n(p, d)", shape=cylinder, fillcolor="#fff8e1"];
+      sph   [label="sphere registers\nc, r^2  (SMAX=16)", shape=box3d];
+      feed  [label="feed FSM\n(ray r, sphere s) stream"];
+      rsp   [label="v3a_raysphere_pipe\n19 stages, 1 test / cycle\n(includes v3a_invsqrt)", fillcolor="#e3f2fd"];
+      red   [label="reducer\nclosest hit / any hit"];
+      res   [label="result BRAM\nindex, t", shape=cylinder, fillcolor="#fff8e1"];
+      ryreg -> feed; feed -> raym; raym -> rsp; sph -> rsp; feed -> rsp [label="valid, r, s"];
+      rsp -> red [label="disc, t"]; red -> res;
+    }
+
+    ep -> dec;
+    dec -> nbreg; dec -> body [label="host R/W"];
+    dec -> ryreg; dec -> sph; dec -> raym [label="DMA fill"]; res -> dec [label="read back"];
+    nbfsm -> irq; red -> irq;
+  }
+
+  drv -> pcie [dir=both, label="MMIO + DMA"];
+  pcie -> ep [dir=both];
+  irq -> pcie [style=dashed, label="MSI"];
+}

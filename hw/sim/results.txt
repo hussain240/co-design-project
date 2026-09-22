@@ -1,0 +1,20 @@
+nbody  : 5 bodies, 2000 steps, 10 pairs/step
+  RTL vs golden fixed-point model: BIT-EXACT
+  energy: float benchmark -0.169071606870, hardware -0.169071606646
+          relative difference 1.33e-09
+  max |position diff| vs float benchmark: 9.01e-07
+  cycles: 76000 = 38.0 per step (10 pair feeds +
+          19 latency + 5 position updates + control)
+ray    : closest hit, primary rays
+  2500 rays x 7 spheres = 17500 tests
+  RTL vs golden fixed-point model: BIT-EXACT
+  closest sphere == float benchmark: 2500/2500 rays
+  (194 hits), max |t error| 1.12e-09
+  cycles: 17521 = 1.001 per test (+19 latency, +1 BRAM read)
+ray    : any hit, shadow rays
+  1940 rays x 7 spheres = 13580 tests
+  RTL vs golden fixed-point model: BIT-EXACT
+  shadow decision == float benchmark: 1940/1940 rays
+  (53 occluded)
+  cycles: 13601 = 1.002 per test (+19 latency, +1 BRAM read)
+RESULT: PASS

@@ -1,0 +1,43 @@
+digraph P {
+  graph [rankdir=LR, fontname="Helvetica", fontsize=12, nodesep=0.2, ranksep=0.3,
+         label="V3A datapaths (one register stage per box, at most one 64x64 multiply per stage)", labelloc=t];
+  node  [shape=record, style="filled", fontname="Helvetica", fontsize=9, fillcolor="#ffffff"];
+  edge  [arrowsize=0.6];
+
+  subgraph cluster_inv {
+    label="v3a_invsqrt  (latency 12)  y = x^-1/2, Q23.40"; style="rounded,filled"; fillcolor="#f3e5f5"; color="#8e24aa";
+    i1 [label="{1 normalize|msb index\nm = x/4^k in [1,4)}"];
+    i2 [label="{2 ROM|y0 = LUT64[m[41:36]]}"];
+    n1 [label="{3,4,5 Newton #1|y2=y*y\nt=m*y2\ny=y(3-t)/2}"];
+    n2 [label="{6,7,8 Newton #2|same}"];
+    n3 [label="{9,10,11 Newton #3|same}"];
+    i12[label="{12 denormalize|y = y / 2^k}"];
+    i1 -> i2 -> n1 -> n2 -> n3 -> i12;
+  }
+
+  subgraph cluster_pair {
+    label="v3a_pair_pipe (nbody)  latency 19, 22 multipliers"; style="rounded,filled"; fillcolor="#e3f2fd"; color="#1e88e5";
+    p1 [label="{P1|d = r_i - r_j}"];
+    p2 [label="{P2|dx^2 dy^2 dz^2}"];
+    p3 [label="{P3|d2 = sum}"];
+    pinv [label="{P4-P15|invsqrt(d2)\n+ sideband delay 12}", fillcolor="#f3e5f5"];
+    p16 [label="{P16|y*y}"];
+    p17 [label="{P17|mag = y^3}"];
+    p18 [label="{P18|b1m=mdt_i*mag\nb2m=mdt_j*mag}"];
+    p19 [label="{P19|f_i = d*b2m\nf_j = d*b1m}"];
+    p1 -> p2 -> p3 -> pinv -> p16 -> p17 -> p18 -> p19;
+  }
+
+  subgraph cluster_ray {
+    label="v3a_raysphere_pipe (raytrace)  latency 19, 17 multipliers"; style="rounded,filled"; fillcolor="#e8f5e9"; color="#43a047";
+    r1 [label="{R1|e = c - p}"];
+    r2 [label="{R2|e.x*d.x ... e.x^2 ...}"];
+    r3 [label="{R3|v = e.d\ncc = e.e}"];
+    r4 [label="{R4|v*v}"];
+    r5 [label="{R5|disc = r2-(cc-v^2)}"];
+    rinv [label="{R6-R17|invsqrt(disc)\n+ sideband delay 12}", fillcolor="#f3e5f5"];
+    r18 [label="{R18|s = disc*y = sqrt}"];
+    r19 [label="{R19|t = v - s\nhit = disc \>= 0}"];
+    r1 -> r2 -> r3 -> r4 -> r5 -> rinv -> r18 -> r19;
+  }
+}

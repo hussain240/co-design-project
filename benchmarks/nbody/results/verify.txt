@@ -1,0 +1,5 @@
+steps=20000
+energy before : original=-0.1690751638285245  optimized=-0.1690751638285245
+energy after  : original=-0.16908926275527172  optimized=-0.16908926275527195
+|dE|=2.220e-16   max |state diff|=6.117e-12
+PASS

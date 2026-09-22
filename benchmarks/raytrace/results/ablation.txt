@@ -1,0 +1,6 @@
+variant (cumulative)                    time per render  vs original
+raytrace_v0_original                           806.4 ms        1.00x
+raytrace_v1_no_checks                          737.1 ms        1.09x
+raytrace_v2_hoist                              566.1 ms        1.42x
+raytrace_v3_inline                             307.9 ms        2.62x
+raytrace_v4_slots                              277.7 ms        2.90x

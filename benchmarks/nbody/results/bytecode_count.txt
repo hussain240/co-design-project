@@ -1,0 +1,24 @@
+Python 3.10.12, per step (averaged over 100 steps)
+opcode                  original  optimized
+LOAD_FAST                  397.0      385.8
+STORE_FAST                 186.0      136.6
+BINARY_MULTIPLY            135.0      125.0
+LOAD_CONST                  85.0       10.4
+INPLACE_ADD                 45.0       45.0
+STORE_SUBSCR                75.0        0.3
+BINARY_SUBSCR               75.0        0.1
+DUP_TOP_TWO                 75.0        0.0
+ROT_THREE                   75.0        0.0
+UNPACK_SEQUENCE             60.0        0.2
+INPLACE_SUBTRACT            30.0       30.0
+BINARY_SUBTRACT             30.0       30.0
+BINARY_ADD                  20.0       20.0
+BINARY_POWER                10.0       10.0
+FOR_ITER                    18.0        0.0
+JUMP_ABSOLUTE               16.0        1.0
+GET_ITER                     2.0        0.0
+EXTENDED_ARG                 0.0        1.0
+LOAD_GLOBAL                  0.0        0.0
+RETURN_VALUE                 0.0        0.0
+CALL_FUNCTION                0.0        0.0
+TOTAL                     1334.1      795.5
